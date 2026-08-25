@@ -243,6 +243,41 @@
     .rsvp-input, .rsvp-select{font-size:1rem;} .rsvp-title{font-size:2.8rem;}
     .rsvp-container{padding:30px 20px;} #guest-name-display{font-size:1.4rem;}
   }
+
+  /* ============================================================ */
+  /* MENSAJE PERSONALIZADO EN BLANCO (CORREGIDO)                  */
+  /* ============================================================ */
+  #personalized-greeting {
+    display: none;
+    margin: 20px auto 30px;
+    padding: 20px 15px;
+    background: rgba(79, 14, 33, 0.85); /* Fondo vino oscuro elegante */
+    backdrop-filter: blur(4px);
+    border-radius: 15px;
+    max-width: 420px;
+    border: 2px solid rgba(201, 161, 90, 0.8); /* Borde dorado */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+  #guest-name-display {
+    font-family: 'Arial', sans-serif !important;
+    font-size: 1.8rem;
+    color: #ffffff !important; /* BLANCO PURO */
+    text-decoration: none !important; /* QUITA EL SUBRAYADO */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Sombra para que resalte */
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1.3;
+  }
+  #guest-capacity-display {
+    font-family: 'Arial', sans-serif !important;
+    font-size: 1.1rem;
+    color: #ffffff !important; /* BLANCO PURO */
+    text-decoration: none !important; /* QUITA EL SUBRAYADO */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
