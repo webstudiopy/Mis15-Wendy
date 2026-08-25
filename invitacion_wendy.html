@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mis XV Años · Wendy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush:#f7dfe6; --blush-deep:#f1c9d6; --wine:#7a1533;
+    --wine-deep:#4f0e21; --rose:#c6577c; --gold:#c9a15a;
+    --cream:#fff8f4; --ink:#4a1626;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; min-height:100vh;
+    background-image: url('img/cumpleee.png'); 
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #4f0e21; 
+    font-family:'Cormorant Garamond', serif; color:var(--ink);
+    overflow-x:hidden;
+  }
+
+  #gate{
+    position:fixed; inset:0; z-index:100;
+    display:flex; align-items:center; justify-content:center;
+    background-color: #4f0e21;
+    background-image: url('img/Captura de pantalla (5555).png'); 
+    background-size: contain; background-position: center; background-repeat: no-repeat;
+    transition:opacity 1s ease, visibility 1s ease; cursor:pointer; overflow:hidden;
+  }
+  #gate.hidden{opacity:0; visibility:hidden; pointer-events:none;}
+
+  #gate::before {
+    content:''; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); width:80%; max-width:700px; height:80%;
+    background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, transparent 70%);
+    border-radius:50%; z-index:5; pointer-events:none;
+    animation:auraPulse 3s infinite ease-in-out;
+  }
+  #gate:hover::before { animation-duration:1s; background: radial-gradient(circle, rgba(255,215,0,0.6) 0%, transparent 80%); }
+  @keyframes auraPulse {
+    0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
+    50% { transform:translate(-50%,-50%) scale(1.15); opacity:1; }
+  }
+
+  #enterBtn{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    background:transparent; border:none; cursor:pointer; z-index:15; opacity:0;
+  }
+
+  #magicFx{ position:absolute; top:0; left:0; width:100%; height:100%; z-index:10; pointer-events:none; }
+  
+  /* Mejora: Hace que los brillos de la varita resalten sobre el fondo */
+  #wandCanvas{ 
+    position:fixed; top:0; left:0; width:100%; height:100%; 
+    z-index:200; pointer-events:none; display:none;
+    mix-blend-mode: screen; /* Mezcla los colores para que brillen más */
+  }
+  
+  #fx{position:fixed; inset:0; z-index:1; pointer-events:none;}
+
+  #soundToggle{
+    position:fixed; top:18px; right:18px; z-index:50; width:46px; height:46px; border-radius:50%;
+    background:rgba(255,248,244,.85); border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow:0 6px 16px rgba(79,14,33,.18); transition:opacity .6s ease, transform .3s ease; opacity:0;
+  }
+  #soundToggle.show{opacity:1;} #soundToggle:hover{transform:scale(1.06);}
+  #soundToggle svg{width:20px; height:20px; fill:var(--wine);}
+
+  main{position:relative; z-index:2;}
+  section{ position:relative; max-width:640px; margin:0 auto; padding:70px 26px; text-align:center; }
+
+  #hero{padding-top:110px; padding-bottom:40px;}
+  .lead{
+    font-family:'Marcellus', serif; font-size:1.8rem; line-height:1.4; color:#fff8f4;
+    max-width:500px; margin:0 auto;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8), 0 0 25px rgba(201,161,90,0.5);
+  }
+  .lead.date-lead{
+    font-size:2.2rem; letter-spacing:0.15em; font-weight:600; color:#ffffff;
+    text-transform:uppercase; margin-bottom:5px;
+    text-shadow: 0 0 15px rgba(255,215,0,1), 0 2px 5px rgba(0,0,0,0.8);
+  }
+  .lead.invite-lead{
+    font-style:italic; margin-top:25px; font-size:1.5rem; line-height:1.6;
+    color:#f7dfe6; text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  }
+
+  .cd-label{
+    font-family:'Marcellus', serif; letter-spacing:.2em; text-transform:uppercase;
+    font-size:1.3rem; color:#ffffff; opacity:1; margin-bottom:25px; font-weight:600;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+  }
+  .cd-grid{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .cd-cell{ background:var(--cream); border:1px solid var(--blush-deep); border-radius:14px; padding:16px 18px; min-width:74px; box-shadow:0 8px 20px rgba(79,14,33,.08); }
+  .cd-num{
+    font-family:'Marcellus', serif; font-size:2rem; color:#FFD700; display:block;
+    font-variant-numeric:tabular-nums; text-shadow:0 0 15px rgba(255,215,0,0.8), 0 2px 4px rgba(0,0,0,0.8);
+  }
+  .cd-unit{ font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:#ffffff; opacity:0.9; text-shadow:0 1px 3px rgba(0,0,0,0.9); }
+
+  /* ============================================================ */
+  /* CALENDARIO ESTILO DORADO                                     */
+  /* ============================================================ */
+  #calendario-section{ padding-top: 30px; }
+  .calendario-titulo{
+    font-family:'Mrs Saint Delafield', cursive;
+    font-size:2.8rem;
+    color:#FFD700;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 2px 5px rgba(0,0,0,0.8);
+  }
+  .calendario{
+    background: rgba(255, 248, 244, 0.9);
+    border: 2px solid #c9a15a;
+    border-radius: 15px;
+    padding: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 10px rgba(201, 161, 90, 0.3);
+  }
+  .cal-header{
+    font-family:'Marcellus', serif;
+    color: #7a1533;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .cal-grid{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .cal-dia-nombre{
+    font-family:'Marcellus', serif;
+    font-size: 0.8rem;
+    color: #7a1533;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 5px;
+  }
+  .cal-dia{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: #4f0e21;
+    text-align: center;
+    padding: 6px 0;
+    border-radius: 8px;
+  }
+  .cal-dia.vacio{ color: transparent; }
+  .cal-dia.especial{
+    background: #7a1533;
+    color: #FFD700;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    animation: latido 1.5s infinite;
+  }
+  @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+  /* Fin Calendario */
+  /* ============================================================ */
+
+  .scroll-down-arrow { text-align:center; margin:10px auto 20px; cursor:pointer; animation:bounce 1.6s infinite; }
+  .scroll-down-arrow span { display:block; font-family:'Marcellus', serif; font-size:0.9rem; letter-spacing:0.15em; text-transform:uppercase; color:#ffffff; text-shadow:0 2px 5px rgba(0,0,0,0.9); margin-bottom:6px; }
+  .scroll-down-arrow svg { width:30px; height:30px; stroke:#FFD700; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 0 8px rgba(255,215,0,0.8)); }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
+
+  #text-scroll{ overflow:hidden; padding:20px 0; margin:0 auto 10px; max-width:100%; position:relative; }
+  #text-scroll::before, #text-scroll::after{ content:''; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none; }
+  #text-scroll::before{ left:0; background:linear-gradient(90deg, #4f0e21, transparent); }
+  #text-scroll::after{ right:0; background:linear-gradient(270deg, #4f0e21, transparent); }
+  .text-track{ display:flex; align-items:center; gap:60px; width:max-content; animation:scrollText 18s linear infinite; }
+  .text-track span{
+    font-family:'Mrs Saint Delafield', cursive; font-size:clamp(3rem, 6vw, 4.5rem);
+    color:#FFD700; opacity:1; letter-spacing:2px;
+    text-shadow:0 0 20px rgba(255,215,0,0.8), 0 4px 10px rgba(0,0,0,0.8);
+  }
+  @keyframes scrollText{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  #galeria{ padding:40px 0; background:var(--blush); max-width:640px; margin:0 auto; }
+  #galeria .eyebrow{ font-family:'Marcellus', serif; letter-spacing:.4em; text-transform:uppercase; font-size:.7rem; color:var(--wine); opacity:.7; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:8px; }
+  #galeria .eyebrow::before, #galeria .eyebrow::after{ content:""; width:26px; height:1px; background:var(--wine); opacity:0.4; }
+  #galeria .section-title{ font-family:'Mrs Saint Delafield', cursive; color:var(--wine); font-size:clamp(2.8rem, 5vw, 4rem); margin-bottom:30px; }
+  .carousel-wrap{max-width:820px; margin:0 auto; padding:0 20px;}
+  .carousel{ position:relative; border-radius:28px; overflow:hidden; box-shadow:0 20px 50px rgba(79,14,33,0.15); background:var(--cream); }
+  .carousel-track{ display:flex; transition:transform .7s cubic-bezier(.65,0,.35,1); }
+  .carousel-track .slide{ flex:0 0 100%; padding:6px; box-sizing:border-box; }
+  .carousel-track .slide img{ width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:12px; display:block; }
+  .carousel-arrow{ position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.85); display:flex; align-items:center; justify-content:center; z-index:5; box-shadow:0 6px 16px rgba(21,54,72,0.2); border:none; cursor:pointer; }
+  .carousel-arrow.prev{left:14px;} .carousel-arrow.next{right:14px;}
+  .carousel-arrow svg{width:18px; height:18px;}
+  .carousel-dots{ display:flex; justify-content:center; gap:9px; margin-top:20px; }
+  .carousel-dots button{ width:10px; height:10px; border-radius:50%; background:var(--wine); opacity:.4; border:none; cursor:pointer; transition:opacity 0.3s; }
+  .carousel-dots button.active{ opacity:1; transform:scale(1.25); }
+  @media (min-width:768px){ .carousel-track .slide{ flex:0 0 33.333%; } }
+
+  #details{ position:relative; border-radius:28px; padding:56px 30px; margin:20px auto; max-width:600px; box-shadow:0 20px 50px rgba(79,14,33,.10); background-image:url('img/IMA3.png'); background-color:var(--blush); background-size:cover; background-position:center; z-index:1; }
+  #details::before{ content:''; position:absolute; inset:0; border-radius:28px; background:rgba(255,248,244,0.6); backdrop-filter:blur(3px); z-index:-1; }
+  .detail-title{ font-family:'Mrs Saint Delafield', cursive; font-size:2.6rem; color:var(--wine); margin-bottom:28px; }
+  .detail-row{ display:flex; align-items:center; gap:16px; text-align:left; padding:16px 8px; border-bottom:1px dashed var(--blush-deep); }
+  .detail-row:last-child{border-bottom:none;}
+  .detail-icon{ flex:none; width:46px; height:46px; border-radius:50%; background:var(--wine); display:flex; align-items:center; justify-content:center; }
+  .detail-icon svg{width:22px; height:22px; fill:var(--cream);}
+  .detail-text .k{ display:block; font-family:'Marcellus', serif; font-size:0.95rem; letter-spacing:.15em; text-transform:uppercase; color:var(--wine); opacity:.8; margin-bottom:4px; }
+  .detail-text .v{ font-size:1.7rem; color:var(--ink); font-weight:500; display:block; }
+  .map-btn{ display:inline-block; margin-top:12px; font-family:'Marcellus', serif; font-size:0.9rem; letter-spacing:0.05em; text-transform:uppercase; background:var(--wine); color:var(--cream); text-decoration:none; padding:12px 24px; border-radius:40px; box-shadow:0 4px 12px rgba(79,14,33,0.25); transition:transform .25s ease, box-shadow .25s ease; }
+  .map-btn:hover{ transform:translateY(-2px); box-shadow:0 8px 16px rgba(79,14,33,0.35); }
+
+  #rsvp{padding-top:20px;}
+  .rsvp-container{ background-color:#ffffff; padding:40px 30px; border-radius:20px; max-width:420px; margin:0 auto; box-shadow:0 15px 35px rgba(79,14,33,0.15); border:1px solid rgba(255,255,255,0.5); }
+  .rsvp-title{ font-family:'Arial', sans-serif !important; font-size:1.5rem; color:var(--wine-deep); margin-bottom:8px; line-height:1.1; letter-spacing:2px; }
+  .rsvp-text{ max-width:100%; margin:0 auto 28px; font-family:'Arial', sans-serif !important; font-size:1.25rem; line-height:1.6; color:#3d0e1c; font-weight:500; }
+  .rsvp-form{ display:flex; flex-direction:column; gap:16px; width:100%; }
+  .rsvp-input, .rsvp-select { width:100%; padding:15px 18px; border-radius:30px; border:1px solid #e6d6dd; background:#ffffff; font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--ink); outline:none; transition:border 0.3s ease, box-shadow 0.3s ease; box-shadow:inset 0 2px 4px rgba(0,0,0,0.03); }
+  .rsvp-input:focus, .rsvp-select:focus { border-color:var(--wine); box-shadow:0 0 0 3px rgba(122,21,51,0.15); }
+  .rsvp-input::placeholder{ color:#a88591; font-style:italic; opacity:0.8; }
+  .rsvp-select { appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a1533' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat:no-repeat; background-position:right 18px center; background-size:14px; }
+  .rsvp-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:'Marcellus', serif; letter-spacing:.1em; text-transform:uppercase; font-size:.85rem; background:var(--wine); color:var(--cream); border:none; padding:16px 34px; border-radius:40px; box-shadow:0 10px 24px rgba(79,14,33,.3); transition:transform .25s ease, box-shadow .25s ease; cursor:pointer; margin-top:6px; width:100%; }
+  .rsvp-btn:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(79,14,33,.42); }
+  .rsvp-btn svg{width:18px; height:18px; fill:var(--cream);}
+  #thankyou { display:none; margin-top:15px; font-size:1.5rem; font-family:'Mrs Saint Delafield', cursive; color:var(--wine); letter-spacing:1px; }
+
+  footer{ text-align:center; padding:60px 26px 90px; }
+  .foot-name{
+    font-family:'Mrs Saint Delafield', cursive;
+    font-size:clamp(2.6rem, 9vw, 4rem);
+    color: #FFD700; /* DORADO */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 2px 5px rgba(0,0,0,0.8);
+  }
+  .foot-sub{
+    font-family:'Marcellus', serif; letter-spacing:.3em; text-transform:uppercase;
+    font-size:.65rem; color:#ffffff; opacity:0.9; margin-top:6px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+  }
+
+  @media (max-width:480px){
+    #details{padding:40px 18px;} .cd-cell{min-width:62px; padding:12px 10px;}
+    .detail-text .v{font-size:1.3rem;} .detail-text .k{font-size:0.8rem;}
+    .rsvp-input, .rsvp-select{font-size:1rem;} .rsvp-title{font-size:2.8rem;}
+    .rsvp-container{padding:30px 20px;} #guest-name-display{font-size:1.4rem;}
+  }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <canvas id="magicFx"></canvas>
+  <button id="enterBtn" aria-label="Abrir invitación"></button>
+</div>
+
+<canvas id="wandCanvas"></canvas>
+<canvas id="fx"></canvas>
+
+<div id="soundToggle" aria-label="silenciar música">
+  <svg id="soundIcon" viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+</div>
+
+<audio id="bgMusic" src="EoO - Bad Bunny.mp3" loop preload="auto"></audio>
+
+<main>
+
+  <section id="hero">
+    <p class="lead date-lead">VIERNES</p>
+    <p class="lead date-lead">18 |09| 2026</p>
+    <p class="lead invite-lead">¡NO FALTES!</p>
+    <div id="personalized-greeting">
+      <p id="guest-name-display"></p>
+      <p id="guest-capacity-display"></p>
+    </div>
+  </section>
+
+  <div class="scroll-down-arrow" id="scrollDownArrow">
+    <span>Desliza para ver más</span>
+    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
+  </div>
+
+  <section id="countdown">
+    <div class="cd-label">Faltan</div>
+    <div class="cd-grid">
+      <div class="cd-cell"><span class="cd-num" id="cd-d">00</span><span class="cd-unit">días</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-h">00</span><span class="cd-unit">horas</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-m">00</span><span class="cd-unit">min</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-s">00</span><span class="cd-unit">seg</span></div>
+    </div>
+  </section>
+
+  <!-- CALENDARIO CORREGIDO -->
+  <section id="calendario-section">
+    <h2 class="calendario-titulo">Guarda este día</h2>
+    <div class="calendario" id="calendario">
+      <div class="cal-header">Septiembre 2026</div>
+      <div class="cal-grid" id="cal-grid-contenido">
+        <!-- Aquí el JavaScript generará todos los días sin duplicar -->
+      </div>
+    </div>
+  </section>
+
+  <div id="text-scroll">
+    <div class="text-track">
+      <span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span><span>¡No faltes!</span>
+    </div>
+  </div>
+
+  <section id="galeria">
+    <div class="eyebrow">Mis recuerdos</div>
+    <h2 class="section-title">Mis Fotos</h2>
+    <div class="carousel-wrap">
+      <div class="carousel">
+        <div class="carousel-track" id="galeriaTrack">
+          <div class="slide"><img src="img/IMG-20260822-WA0023.jpg" alt="Foto 1"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0024.jpg" alt="Foto 2"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0025.jpg" alt="Foto 3"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0026.jpg" alt="Foto 4"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0027.jpg" alt="Foto 5"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0028.jpg" alt="Foto 6"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0029.jpg" alt="Foto 7"></div>
+          <div class="slide"><img src="img/IMG-20260822-WA0030.jpg" alt="Foto 8"></div>
+        </div>
+        <button class="carousel-arrow prev" id="galeriaPrev"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#215e78" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel-arrow next" id="galeriaNext"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#215e78" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="carousel-dots" id="galeriaDots"></div>
+    </div>
+  </section>
+
+  <section id="details">
+    <div class="detail-title">Detalles</div>
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 18H5V10h14v11zm0-13H5V5h14v3z"/></svg></div>
+      <div class="detail-text"><span class="k">Fecha</span><span class="v">Viernes 18 de septiembre</span></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.59l4.24 4.24-1.41 1.41L11 13V6h2v6.59z"/></svg></div>
+      <div class="detail-text"><span class="k">Hora</span><span class="v">20:00 hs</span></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg></div>
+      <div class="detail-text"><span class="k">Lugar</span><span class="v">MP Eventos</span><br><a class="map-btn" href="https://www.google.com/maps/search/MP+Eventos" target="_blank" rel="noopener">Ver ubicación en el mapa →</a></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M16 4a4 4 0 00-8 0H4v2l7 4-7 4v6h16v-6l-7-4 7-4V4h-4zm-4-2a2 2 0 012 2H10a2 2 0 012-2z"/></svg></div>
+      <div class="detail-text"><span class="k">Vestimenta</span><span class="v">Sport elegante (evitar color rojo/bordó)</span></div>
+    </div>
+  </section>
+
+  <section id="rsvp">
+    <div class="rsvp-container">
+      <div class="rsvp-title">Confirmá tu asistencia</div>
+      <p class="rsvp-text">Tu presencia hará de este día algo aún más especial.</p>
+      <form id="rsvpForm" class="rsvp-form" onsubmit="enviarWhatsApp(event)">
+        <input type="text" id="nombre" class="rsvp-input" placeholder="Tu nombre y apellido" required>
+        <select id="asistencia" class="rsvp-select" required>
+          <option value="">¿Asistirás?</option>
+          <option value="¡Sí, allí estaré!">¡Sí, allí estaré!</option>
+          <option value="No podré asistir">No podré asistir</option>
+        </select>
+        <button type="submit" class="rsvp-btn" id="btnConfirmar"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm5.6 14.2c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.7-2.8-1-4.6-3.9-4.7-4-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.7.8 1.8.1.2.1.3 0 .5-.1.2-.1.3-.3.5-.1.2-.3.3-.4.5-.1.1-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.1.5.2.5.3.1.2.1.6-.1 1.1z"/></svg> Confirmar por WhatsApp</button>
+        <p id="thankyou">¡Gracias por confirmar! Nos vemos. 🎀</p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-name">Wendy</div>
+    <div class="foot-sub">Mis XV años · 18 de septiembre</div>
+  </footer>
+
+</main>
+
+<script>
+/* ===================== CALENDARIO CORREGIDO ===================== */
+function crearCalendario() {
+  const calGrid = document.getElementById('cal-grid-contenido');
+  calGrid.innerHTML = '';
+  const diasSemana = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+  const totalDias = 30;
+  const diaInicio = 2; // Martes
+
+  diasSemana.forEach(dia => {
+    const div = document.createElement('div');
+    div.className = 'cal-dia-nombre';
+    div.textContent = dia;
+    calGrid.appendChild(div);
+  });
+
+  for (let i = 0; i < diaInicio; i++) {
+    const div = document.createElement('div');
+    div.className = 'cal-dia vacio';
+    calGrid.appendChild(div);
+  }
+
+  for (let dia = 1; dia <= totalDias; dia++) {
+    const div = document.createElement('div');
+    div.className = 'cal-dia';
+    div.textContent = dia;
+    if (dia === 18) div.classList.add('especial');
+    calGrid.appendChild(div);
+  }
+}
+crearCalendario();
+
+/* ===================== VARITA MÁGICA MEJORADA ===================== */
+const wandCanvas = document.getElementById('wandCanvas');
+const wandCtx = wandCanvas.getContext('2d');
+let wW, wH;
+function resizeWand(){ wW = wandCanvas.width = window.innerWidth; wH = wandCanvas.height = window.innerHeight; }
+resizeWand(); window.addEventListener('resize', resizeWand);
+
+let wandParticles = [];
+
+// Crea una partícula más brillante y variada
+function createWandParticle(x, y) {
+  const types = ['star', 'spark', 'orb'];
+  const type = types[Math.floor(Math.random() * types.length)];
+  return {
+    x, y,
+    vx: (Math.random() - 0.5) * 4,
+    vy: (Math.random() - 0.5) * 4,
+    size: type === 'orb' ? 5 + Math.random() * 6 : 3 + Math.random() * 4,
+    life: 0.6 + Math.random() * 0.6,
+    type,
+    rotation: Math.random() * Math.PI * 2,
+    rotationSpeed: (Math.random() - 0.5) * 0.15,
+  };
+}
+
+function drawWandParticle(p) {
+  wandCtx.save();
+  wandCtx.globalAlpha = p.life;
+  
+  if (p.type === 'star') {
+    wandCtx.fillStyle = '#FFD700';
+    wandCtx.shadowColor = '#FFD700';
+    wandCtx.shadowBlur = 20;
+    wandCtx.translate(p.x, p.y);
+    wandCtx.rotate(p.rotation);
+    const size = p.size * 2.5;
+    wandCtx.beginPath();
+    wandCtx.moveTo(0, -size);
+    wandCtx.quadraticCurveTo(3, -3, size, 0);
+    wandCtx.quadraticCurveTo(3, 3, 0, size);
+    wandCtx.quadraticCurveTo(-3, 3, -size, 0);
+    wandCtx.quadraticCurveTo(-3, -3, 0, -size);
+    wandCtx.fill();
+  } else if (p.type === 'orb') {
+    // Orbe de luz grande y suave
+    const gradient = wandCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2);
+    gradient.addColorStop(0, 'rgba(255, 255, 200, 1)');
+    gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+    wandCtx.fillStyle = gradient;
+    wandCtx.shadowBlur = 25;
+    wandCtx.beginPath();
+    wandCtx.arc(p.x, p.y, p.size * 2, 0, Math.PI * 2);
+    wandCtx.fill();
+  } else {
+    wandCtx.fillStyle = '#FFFDE7';
+    wandCtx.shadowColor = '#FFD700';
+    wandCtx.shadowBlur = 15;
+    wandCtx.beginPath();
+    wandCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    wandCtx.fill();
+  }
+  wandCtx.restore();
+}
+
+function animateWand() {
+  wandCtx.clearRect(0, 0, wW, wH);
+  for (let i = wandParticles.length - 1; i >= 0; i--) {
+    let p = wandParticles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rotation += p.rotationSpeed;
+    p.life -= 0.015;
+    if (p.life <= 0) { wandParticles.splice(i, 1); continue; }
+    drawWandParticle(p);
+  }
+  requestAnimationFrame(animateWand);
+}
+animateWand();
+
+function startMagicWand() {
+  wandCanvas.style.display = 'block';
+  let progress = 0;
+  const speed = 0.02; // Un poco más rápida para que se sienta fluida
+  let startX = -50, startY = wH + 50, endX = wW + 50, endY = -50;
+
+  function moveWand() {
+    let x = startX + (endX - startX) * progress;
+    let y = startY + (endY - startY) * progress;
+
+    // Crea una lluvia de partículas en la punta (más cantidad)
+    for (let i = 0; i < 15; i++) {
+      wandParticles.push(createWandParticle(x, y));
+    }
+
+    wandCtx.clearRect(0, 0, wW, wH);
+    
+    // Dibuja la varita con un degradado y un halo
+    const gradient = wandCtx.createLinearGradient(x - 30, y + 30, x, y);
+    gradient.addColorStop(0, 'rgba(255, 215, 0, 0)');
+    gradient.addColorStop(0.5, 'rgba(255, 215, 0, 0.8)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 1)');
+    
+    wandCtx.strokeStyle = gradient;
+    wandCtx.lineWidth = 5;
+    wandCtx.shadowColor = '#FFD700';
+    wandCtx.shadowBlur = 25;
+    wandCtx.beginPath();
+    wandCtx.moveTo(x - 30, y + 30); // mango
+    wandCtx.lineTo(x, y); // punta
+    wandCtx.stroke();
+
+    // Estrella giratoria en la punta, más grande
+    wandCtx.fillStyle = '#FFF8DC';
+    wandCtx.shadowBlur = 30;
+    wandCtx.translate(x, y);
+    wandCtx.rotate(Date.now() / 150);
+    wandCtx.beginPath();
+    const size = 16;
+    wandCtx.moveTo(0, -size);
+    wandCtx.quadraticCurveTo(4, -4, size, 0);
+    wandCtx.quadraticCurveTo(4, 4, 0, size);
+    wandCtx.quadraticCurveTo(-4, 4, -size, 0);
+    wandCtx.quadraticCurveTo(-4, -4, 0, -size);
+    wandCtx.fill();
+
+    progress += speed;
+    if (progress < 1) {
+      requestAnimationFrame(moveWand);
+    } else {
+      // Gran explosión final
+      for (let i = 0; i < 80; i++) {
+        wandParticles.push(createWandParticle(x, y));
+      }
+      setTimeout(() => {
+        wandCanvas.style.display = 'none';
+        gate.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        launchBowBurst();
+      }, 400);
+    }
+  }
+  moveWand();
+}
+
+/* ===================== ENTRY / AUDIO ===================== */
+const gate = document.getElementById('gate'); const enterBtn = document.getElementById('enterBtn'); const soundToggle = document.getElementById('soundToggle'); const soundIcon = document.getElementById('soundIcon'); const bgMusic = document.getElementById('bgMusic');
+let musicPlaying = false; let audioCtx = null;
+function startMusic(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if(audioCtx.state==='suspended') audioCtx.resume(); bgMusic.play().catch(e=>console.log("Bloqueado")); musicPlaying=true; soundToggle.classList.add('show'); updateSoundIcon(); }
+function stopMusic(){ bgMusic.pause(); bgMusic.currentTime=0; musicPlaying=false; updateSoundIcon(); }
+function resumeMusic(){ if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume(); bgMusic.play(); musicPlaying=true; updateSoundIcon(); }
+function updateSoundIcon(){ soundIcon.innerHTML = musicPlaying ? '<path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>' : '<path d="M16.5 12A4.5 4.5 0 0014 8v1.79l2.48 2.48c.01-.09.02-.18.02-.27zM19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'; }
+soundToggle.addEventListener('click', ()=>{ if(musicPlaying) stopMusic(); else resumeMusic(); updateSoundIcon(); });
+enterBtn.addEventListener('click', (e)=>{ e.preventDefault(); startMusic(); startMagicWand(); });
+
+/* ===================== PARTÍCULAS GLOBALES (Aumentadas) ===================== */
+const canvas = document.getElementById('fx'); const ctx = canvas.getContext('2d'); let W,H; function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; } resize(); window.addEventListener('resize', resize);
+const particles=[]; function makeParticle(burst){ return { x: burst?W/2+(Math.random()-0.5)*200:Math.random()*W, y: burst?H*0.35+(Math.random()-0.5)*100:-20-Math.random()*H, vx:(Math.random()-0.5)*(burst?4:0.5), vy:burst?-Math.random()*3-1:0.5+Math.random()*0.8, rot:Math.random()*Math.PI*2, vr:(Math.random()-0.5)*0.05, size:3+Math.random()*4, life:burst?1:0.4+Math.random()*0.6, kind:'spark', grav:burst?0.08:0.01, opacity:1 }; }
+for(let i=0;i<70;i++) particles.push(makeParticle(false));
+function launchBowBurst(){ for(let i=0;i<50;i++) particles.push(makeParticle(true)); }
+function drawSpark(p){ ctx.save(); ctx.globalAlpha=p.opacity; ctx.fillStyle='#fff3f6'; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+function tick(){ ctx.clearRect(0,0,W,H); for(let i=particles.length-1;i>=0;i--){ const p=particles[i]; p.vy+=p.grav*0.02; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.opacity=0.35+0.35*Math.sin(Date.now()/600+p.x); drawSpark(p); if(p.y>H+30||p.opacity<=0){ particles[i]=makeParticle(false); particles[i].y=-10; } } requestAnimationFrame(tick); } tick();
+
+/* ===================== COUNTDOWN ===================== */
+const target=new Date('2026-09-18T20:00:00'); function updateCountdown(){ const now=new Date(); let diff=target-now; if(diff<0)diff=0; const d=Math.floor(diff/(1000*60*60*24)); const h=Math.floor((diff/(1000*60*60))%24); const m=Math.floor((diff/(1000*60))%60); const s=Math.floor((diff/1000)%60); document.getElementById('cd-d').textContent=String(d).padStart(2,'0'); document.getElementById('cd-h').textContent=String(h).padStart(2,'0'); document.getElementById('cd-m').textContent=String(m).padStart(2,'0'); document.getElementById('cd-s').textContent=String(s).padStart(2,'0'); } updateCountdown(); setInterval(updateCountdown,1000);
+
+/* ===================== FLECHA ===================== */
+document.getElementById('scrollDownArrow').addEventListener('click', function(){ document.getElementById('countdown').scrollIntoView({behavior:'smooth'}); }); document.body.style.overflow='hidden';
+
+/* ===================== DATOS PERSONALIZADOS ===================== */
+const params=new URLSearchParams(window.location.search); const guestName=params.get('nombre'); const maxPersonas=params.get('personas'); if(guestName){ const greetDiv=document.getElementById('personalized-greeting'); const nameDisplay=document.getElementById('guest-name-display'); const capDisplay=document.getElementById('guest-capacity-display'); greetDiv.style.display='block'; nameDisplay.innerHTML=`¡Hola! Te invito a festejar mis XV conmigo, <strong>${decodeURIComponent(guestName)}</strong>!`; if(maxPersonas) capDisplay.innerHTML=`(Válido para ${maxPersonas} personas)`; else capDisplay.innerHTML=`(Válido para 1 persona)`; const nombreInput=document.getElementById('nombre'); if(nombreInput){ nombreInput.value=decodeURIComponent(guestName); nombreInput.readOnly=true; nombreInput.style.backgroundColor='#fdf6f9'; } }
+
+/* ===================== CARRUSEL ===================== */
+const galeriaTrack=document.getElementById('galeriaTrack'); const galeriaSlides=galeriaTrack.querySelectorAll('.slide'); const galeriaDotsWrap=document.getElementById('galeriaDots'); let galeriaIndex=0; let galeriaSlidesPerView=3; let galeriaInterval=null; function updateGaleriaSlidesPerView(){ galeriaSlidesPerView=window.innerWidth>=768?3:1; } function createGaleriaDots(){ galeriaDotsWrap.innerHTML=''; const totalDots=Math.ceil(galeriaSlides.length/galeriaSlidesPerView); for(let i=0;i<totalDots;i++){ const dot=document.createElement('button'); if(i===0)dot.classList.add('active'); dot.addEventListener('click',()=>goToGaleria(i*galeriaSlidesPerView)); galeriaDotsWrap.appendChild(dot); } } function goToGaleria(index){ const maxIndex=galeriaSlides.length-galeriaSlidesPerView; if(index>maxIndex)index=maxIndex; if(index<0)index=0; galeriaIndex=index; const offset=-galeriaIndex*(100/galeriaSlidesPerView); galeriaTrack.style.transform=`translateX(${offset}%)`; const dotIndex=Math.floor(galeriaIndex/galeriaSlidesPerView); document.querySelectorAll('#galeriaDots button').forEach((d,i)=>d.classList.toggle('active',i===dotIndex)); } function nextGaleria(){ const maxIndex=galeriaSlides.length-galeriaSlidesPerView; if(galeriaIndex+galeriaSlidesPerView<=maxIndex) goToGaleria(galeriaIndex+galeriaSlidesPerView); else goToGaleria(0); } function prevGaleria(){ if(galeriaIndex-galeriaSlidesPerView>=0) goToGaleria(galeriaIndex-galeriaSlidesPerView); else goToGaleria(galeriaSlides.length-galeriaSlidesPerView); } function initGaleriaCarousel(){ updateGaleriaSlidesPerView(); createGaleriaDots(); goToGaleria(0); startGaleriaCarousel(); } function startGaleriaCarousel(){ if(galeriaInterval)clearInterval(galeriaInterval); galeriaInterval=setInterval(nextGaleria,2000); } function pauseGaleriaCarousel(){ if(galeriaInterval)clearInterval(galeriaInterval); } document.getElementById('galeriaNext').addEventListener('click',()=>{pauseGaleriaCarousel();nextGaleria();startGaleriaCarousel();}); document.getElementById('galeriaPrev').addEventListener('click',()=>{pauseGaleriaCarousel();prevGaleria();startGaleriaCarousel();}); const galeriaCarouselElement=document.querySelector('#galeria .carousel'); galeriaCarouselElement.addEventListener('mouseenter',pauseGaleriaCarousel); galeriaCarouselElement.addEventListener('mouseleave',startGaleriaCarousel); galeriaCarouselElement.addEventListener('touchstart',pauseGaleriaCarousel); galeriaCarouselElement.addEventListener('touchend',startGaleriaCarousel); let galeriaResizeTimer; window.addEventListener('resize',()=>{ clearTimeout(galeriaResizeTimer); galeriaResizeTimer=setTimeout(()=>{updateGaleriaSlidesPerView();createGaleriaDots();goToGaleria(galeriaIndex);},200); }); initGaleriaCarousel();
+
+/* ===================== WHATSAPP ===================== */
+function enviarWhatsApp(e){ e.preventDefault(); const nombre=document.getElementById('nombre').value.trim(); const asistencia=document.getElementById('asistencia').value; if(!nombre||!asistencia){alert('Por favor, completá tu nombre y seleccioná si vas a asistir.');return;} const mensaje=`¡Hola Wendy! 🎀 Confirmo mi asistencia a tus XV años.\n\nNombre: ${nombre}\nAsistencia: ${asistencia}`; const numeroWhatsApp='595983509953'; const url=`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`; window.open(url,'_blank'); const btn=document.getElementById('btnConfirmar'); const thankYou=document.getElementById('thankyou'); btn.disabled=true; btn.innerHTML='Confirmado'; btn.style.opacity='0.6'; btn.style.cursor='default'; thankYou.style.display='block'; }
+</script>
+</body>
+</html>
